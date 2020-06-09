@@ -1,0 +1,25 @@
+{% extends "./layout.html" %}
+{%block heading%} BookReview {%endblock%}
+{% block body%}
+    <br>
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Book ID</th>
+            <th scope="col">Title</th>
+            <th scope="col">Author</th>
+            <th scope="col">ISBN</th>
+            <th scope="col">Year</th>
+        </tr>
+        {% for result in res %}
+        <tr>
+            <td>{{ result.id }}</td>
+
+            <td><a href="/book/{{result.id}}">{{ result.title }}</a></td>
+            <td>{{ result.author }}</td>
+            <td>{{ result.isbn }}</td>
+            <td>{{ result.date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{%endblock%}

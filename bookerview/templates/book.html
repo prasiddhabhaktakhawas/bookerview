@@ -1,0 +1,57 @@
+{% extends "./layout.html" %}
+{%block heading%} BookReview {%endblock%}
+{% block body%}
+Book Info:
+<ul >
+    <li>BookerView ID is {{book.id}}</li>
+    <li>Title of the Book is {{book.title}}</li>
+    <li>Author of the Book is {{book.author}}</li>
+    <li>ISBN Number is {{book.isbn}}</li>
+    <li>The Book was published on year {{book.date}}</li>
+    <li>The Average rating of this Book is {{avgrat}}</li>
+    <li>Goodread Average rating is {{grev["books"][0]["average_rating"]}} Out of {{grev["books"][0]["ratings_count"]}} ratings with Total number of {{grev["books"][0]["reviews_count"]}} reviews </li>
+</ul>
+
+My reviews:
+<ul> 
+    {%for mr in myrev %}
+     <li> Review: {{mr.review}} </li> 
+     <li> Ratings: {{mr.rating}} Out of 5</li>
+    {%endfor%}
+</ul>
+
+Update/ Write a review: <br>
+<form action="{{url_for('reviews')}}" method="POST">
+    <div class="row">
+        <input type="hidden" name="id" value="{{book.id}}">
+        <div class="col-8">
+            <input class="form-control" id="reviewbox" name="review" type="text" value="Ratings Only" placeholder="Your review Box" >
+        </div>
+        <div class="col-2">
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="rating">
+                <option selected value="3">Ratings: Def-3</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select> 
+        </div>
+        <div class="col-2">
+            <button class="btn btn-secondary">Submit</button>
+        </div>
+    </div>
+</form>
+<br>
+All reviews 
+<ol>
+    {%for allr in allrev %}
+    <li>User: {{allr.fname}} {{allr.lname}}
+        <uL>
+            <li>Ratings: {{allr.rating}} Out of 5. </li>
+            <li>Review: {{allr.review}}</li>
+        </uL>
+   </li>
+    {%endfor%}
+</ol>
+{%endblock%}

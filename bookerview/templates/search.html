@@ -1,0 +1,22 @@
+{% extends "./layout.html" %}
+{%block heading%} BookReview {%endblock%}
+{% block body%}
+    <div class="container">
+        <h1>Welcome {{(userprofile["fname"]).capitalize()}} {{(userprofile["lname"]).capitalize()}} to Bookerview</h1>
+        <ul class="list-inline">
+            <li>Your UserName is: {{session["username"]}}</li>
+            <li>Your UserID is: {{session["id"]}}</li>
+            <li>Your Reviews Are:
+                <ul>
+                    {% for rev in reviews %}
+                        <li>Book: {{rev["title"]}} <br> Ratings: {{rev["rating"]}} <br>Review: {{rev["review"]}}  </li>
+                    {% endfor %}
+                </ul>
+            </li>
+            
+        </ul>
+    </div>
+    <form action="{{url_for('logout')}} " method="POST">
+        <button type="submit" class="btn btn-primary">Logout</button>
+    </form> <br>
+{%endblock%}

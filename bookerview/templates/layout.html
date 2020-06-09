@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>{%block heading%}{%endblock%}</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
+  <style>
+    section {
+      width: 90%;
+      margin: auto;
+    }
+    body{
+        background: #F1FFFB
+    }
+    {%block css%} {%endblock%}
+  </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="{{url_for('home')}}">Bookeview</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          {% if "username" in session %}
+            <a class="nav-link" href="{{url_for('logout')}}">LogOut {{session.username}} <span class="sr-only">(current)</span></a>
+          {% else %}
+            <a class="nav-link" href="{{url_for('home')}}">Login <span class="sr-only">(current)</span></a>  
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('signup')}}">SignUp</a>
+            </li>
+        {% endif %}
+      </ul>
+      <form class="form-inline" action="{{url_for('search')}}" method="POST">
+        <input class="form-control mr-sm-2" type="search" name="searchvalue" placeholder="Enter Your Search term"
+          aria-label="Search" />
+        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="stype">
+          <option value="title" selected>Title</option>
+          <option value="author">Author</option>
+          <option value="isbn">ISBN</option>
+          <option value="date">Date</option>
+        </select>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+          Search
+        </button>
+      </form>
+        </form>
+    </div>
+  </nav>
+
+  <section>
+    {% if errormessage %}
+      <div class="alert alert-danger" role="alert">
+        {{errormessage}}
+      </div>
+    {% endif %}
+    {% if sucessmessage %}
+      <div class="alert alert-success" role="alert">
+        {{sucessmessage}}
+      </div>
+    {% endif %}    
+    <div class="webcontents">
+      {%block body%} {%endblock%}
+    </div>
+  </section>
+</body>
+
+</html>
